@@ -22,17 +22,15 @@ public class Message {
 
     private String name;
 
-    @JoinColumn(name = "from_user_email")
     private String fromEmail;
 
     private String telephoneNo;
 
     private String messageText;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Instant requestTime;
+    //    @Temporal(TemporalType.TIMESTAMP)
+    private String requestTime;
 
-    @JoinColumn(name = "to_user_email")
     private String toEmail;
 
     @ManyToOne
