@@ -57,13 +57,13 @@ public class UserController {
                 request.getPassword() == null || request.getPassword().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Valid Email and password must be provided");
         }
+
         Optional<User> byId = repository.findById(request.getEmail());
         if (byId.isPresent()) {
             return ResponseEntity.ok(byId.filter(user -> request.getPassword().equals(user.getPassword()))
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username password does not match")));
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, UNABLE_TO_FIND_USER);
-
     }
 
 

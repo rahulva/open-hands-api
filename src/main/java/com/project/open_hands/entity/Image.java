@@ -14,6 +14,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
+//@NoArgsConstructor
 public class Image {
     @Id
     @Column(name = "id")

@@ -12,11 +12,13 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ImageService {
     private final ImageRepository imageRepository;
+    private final PostService postService;
 
     public List<Image> saveImages(String postId, MultipartFile[] files) {
         List<Image> images = Arrays.stream(files).map(file -> {
@@ -31,10 +33,18 @@ public class ImageService {
             }
         }).toList();
 
-        return imageRepository.saveAll(images);
+        List<Image> images1 = imageRepository.saveAll(images);
+        postService.notifyImageUpload(images1);
+        return images1;
     }
-
+/*
     public List<Image> getImages(String postId) {
         return imageRepository.findByPostId(postId);
     }
+
+    public Optional<Image> getImages(Long imageId) {
+        return imageRepository.findById(imageId);
+    }*/
+
+
 }

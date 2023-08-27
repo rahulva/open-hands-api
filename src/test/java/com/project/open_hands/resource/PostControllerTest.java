@@ -1,6 +1,5 @@
 package com.project.open_hands.resource;
 
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.project.open_hands.entity.Post;
 import com.project.open_hands.repository.PostRepository;
 import com.project.open_hands.repository.UserRepository;
@@ -43,7 +42,7 @@ class PostControllerTest {
         post1.setTitle("Item Post 4");
         post1.setDescription("Item Post 1");
         post1.setCategory("Category");
-        post1.setSubCategory("SubCategory");
+        post1.setCondition("New");
         post1.setImages(List.of());
         post1.setLocation("");
         post1.setDateTime(Instant.now(clock).toString());
@@ -54,7 +53,7 @@ class PostControllerTest {
         post2.setTitle("Item Post 5");
         post2.setDescription("Item Post 2");
         post2.setCategory("Category");
-        post2.setSubCategory("SubCategory");
+        post2.setCondition("New");
         post2.setImages(List.of());
         post2.setLocation("");
         post2.setDateTime(Instant.now(clock).toString());
@@ -66,7 +65,7 @@ class PostControllerTest {
         post3.setTitle("Item Post 6");
         post3.setDescription("Item Post 3");
         post3.setCategory("Category");
-        post3.setSubCategory("SubCategory");
+        post3.setCondition("New");
         post3.setImages(List.of());
         post3.setLocation("");
         post3.setDateTime(Instant.now(clock).toString());
@@ -88,7 +87,7 @@ class PostControllerTest {
                 "title": "Razer balde",
                 "description" : "This razer blade is brand new and unused. I bouth it and never get chance to use it.",
                 "category" : "Self care",
-                "subCategory" : "Facial products",
+                "condition" : "Facial products",
                 "location" : "Frankfurt",
                 "images" : ["test_img","test_img2"],
                 "dateTime" : "2023-10-11 10:20:30",
@@ -113,8 +112,8 @@ class PostControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        // [{"id":1,"title":"Item Post 1","description":"Item Post 1","category":"Category","subCategory":"SubCategory","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user2@gmail.com"},{"id":2,"title":"Item Post 2","description":"Item Post 2","category":"Category","subCategory":"SubCategory","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user2@gmail.com"},{"id":3,"title":"Item Post 3","description":"Item Post 3","category":"Category","subCategory":"SubCategory","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user3@gmail.com"}]
-        String res = "[{\"id\":1,\"title\":\"Item Post 1\",\"description\":\"Item Post 1\",\"category\":\"Category\",\"subCategory\":\"SubCategory\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user2@gmail.com\"},{\"id\":2,\"title\":\"Item Post 2\",\"description\":\"Item Post 2\",\"category\":\"Category\",\"subCategory\":\"SubCategory\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user2@gmail.com\"},{\"id\":3,\"title\":\"Item Post 3\",\"description\":\"Item Post 3\",\"category\":\"Category\",\"subCategory\":\"SubCategory\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user3@gmail.com\"}]";
+        // [{"id":1,"title":"Item Post 1","description":"Item Post 1","category":"Category","condition":"New","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user2@gmail.com"},{"id":2,"title":"Item Post 2","description":"Item Post 2","category":"Category","condition":"New","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user2@gmail.com"},{"id":3,"title":"Item Post 3","description":"Item Post 3","category":"Category","condition":"New","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user3@gmail.com"}]
+        String res = "[{\"id\":1,\"title\":\"Item Post 1\",\"description\":\"Item Post 1\",\"category\":\"Category\",\"condition\":\"New\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user2@gmail.com\"},{\"id\":2,\"title\":\"Item Post 2\",\"description\":\"Item Post 2\",\"category\":\"Category\",\"condition\":\"New\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user2@gmail.com\"},{\"id\":3,\"title\":\"Item Post 3\",\"description\":\"Item Post 3\",\"category\":\"Category\",\"condition\":\"New\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user3@gmail.com\"}]";
         Assertions.assertThat(contentAsString).isEqualTo(res.trim());
     }
 
@@ -124,16 +123,16 @@ class PostControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        //[{"id":1,"title":"Item Post 1","description":"Item Post 1","category":"Category","subCategory":"SubCategory","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user2@gmail.com"},{"id":2,"title":"Item Post 2","description":"Item Post 2","category":"Category","subCategory":"SubCategory","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user2@gmail.com"}]
-        String res = "[{\"id\":1,\"title\":\"Item Post 1\",\"description\":\"Item Post 1\",\"category\":\"Category\",\"subCategory\":\"SubCategory\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user2@gmail.com\"},{\"id\":2,\"title\":\"Item Post 2\",\"description\":\"Item Post 2\",\"category\":\"Category\",\"subCategory\":\"SubCategory\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user2@gmail.com\"}]";
+        //[{"id":1,"title":"Item Post 1","description":"Item Post 1","category":"Category","condition":"New","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user2@gmail.com"},{"id":2,"title":"Item Post 2","description":"Item Post 2","category":"Category","condition":"New","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user2@gmail.com"}]
+        String res = "[{\"id\":1,\"title\":\"Item Post 1\",\"description\":\"Item Post 1\",\"category\":\"Category\",\"condition\":\"New\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user2@gmail.com\"},{\"id\":2,\"title\":\"Item Post 2\",\"description\":\"Item Post 2\",\"category\":\"Category\",\"condition\":\"New\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user2@gmail.com\"}]";
         Assertions.assertThat(contentAsString).isEqualTo(res);
 
         String contentAsString2 = mvc.perform(get("/posts/user3@gmail.com").contentType("application/json"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        //[{"id":3,"title":"Item Post 3","description":"Item Post 3","category":"Category","subCategory":"SubCategory","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user3@gmail.com"}]
-        String res2 = "[{\"id\":3,\"title\":\"Item Post 3\",\"description\":\"Item Post 3\",\"category\":\"Category\",\"subCategory\":\"SubCategory\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user3@gmail.com\"}]";
+        //[{"id":3,"title":"Item Post 3","description":"Item Post 3","category":"Category","condition":"New","location":"","images":[],"dateTime":"2023-04-15T10:30:20Z","createdBy":"user3@gmail.com"}]
+        String res2 = "[{\"id\":3,\"title\":\"Item Post 3\",\"description\":\"Item Post 3\",\"category\":\"Category\",\"condition\":\"New\",\"location\":\"\",\"images\":[],\"dateTime\":\"2023-04-15T10:30:20Z\",\"createdBy\":\"user3@gmail.com\"}]";
         Assertions.assertThat(contentAsString2).isEqualTo(res2);
     }
 }

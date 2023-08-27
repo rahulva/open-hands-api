@@ -1,13 +1,9 @@
 package com.project.open_hands.resource;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.project.open_hands.entity.Post;
 import com.project.open_hands.entity.User;
-import com.project.open_hands.repository.MessageRepository;
 import com.project.open_hands.repository.PostRepository;
 import com.project.open_hands.repository.UserRepository;
-import com.project.open_hands.resource.model.PostRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,10 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.*;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -52,7 +46,7 @@ class MessageControllerTest {
         post1.setTitle("Item Post 1");
         post1.setDescription("Item Post 1");
         post1.setCategory("Category");
-        post1.setSubCategory("SubCategory");
+        post1.setCondition("New");
         post1.setImages(List.of());
         post1.setLocation("");
         post1.setDateTime(Instant.now(clock).toString());
@@ -63,7 +57,7 @@ class MessageControllerTest {
         post2.setTitle("Item Post 2");
         post2.setDescription("Item Post 2");
         post2.setCategory("Category");
-        post2.setSubCategory("SubCategory");
+        post2.setCondition("New");
         post2.setImages(List.of());
         post2.setLocation("");
         post2.setDateTime(Instant.now(clock).toString());
@@ -75,7 +69,7 @@ class MessageControllerTest {
         post3.setTitle("Item Post 3");
         post3.setDescription("Item Post 3");
         post3.setCategory("Category");
-        post3.setSubCategory("SubCategory");
+        post3.setCondition("New");
         post3.setImages(List.of());
         post3.setLocation("");
         post3.setDateTime(Instant.now(clock).toString());

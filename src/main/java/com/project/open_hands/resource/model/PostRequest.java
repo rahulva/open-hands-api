@@ -1,5 +1,6 @@
 package com.project.open_hands.resource.model;
 
+import com.project.open_hands.entity.Image;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -19,9 +20,9 @@ public class PostRequest {
     private String category;
 
     @NotBlank
-    private String subCategory;
+    private String condition;
     private String location;
-    private List<String> images = new ArrayList<>();
+    private List<Image> images = new ArrayList<>();
 
     private String timestamp;
     private String createdByEmail;

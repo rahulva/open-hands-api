@@ -8,7 +8,9 @@ import com.project.open_hands.repository.PostRepository;
 import com.project.open_hands.resource.model.MessageRequest;
 import com.project.open_hands.services.PostService;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/messages")
 @RequiredArgsConstructor
+@Slf4j
 public class MessageController {
     private final MessageRepository messageRepo;
     private final PostService postService;
@@ -51,11 +54,22 @@ public class MessageController {
         return entity;
     }
 
-    @GetMapping("/{fromOrTo}/{email}")
-    public ResponseEntity<List<Message>> getMessages(String fromOrTo, String email) {
+    @GetMapping("/{fromOrTo}/{email}" )
+    public ResponseEntity<List<Message>> getMessages(@Valid @PathVariable("fromOrTo") String fromOrTo, @Valid @PathVariable("email") String email) {
+        // Request that I made to other (my email will be in from field)
+        log.info("Requesting {}, {}", fromOrTo, email);
+        List<Message> messages;
         if ("from".equals(fromOrTo)) {
-            return ResponseEntity.ok(messageRepo.findByFromEmail(email));
+            messages = messageRepo.findByFromEmail(email);
+
+        } else {
+            messages = messageRepo.findByToEmail(email);
         }
-        return ResponseEntity.ok(messageRepo.findByToEmail(email));
+
+        if (messages.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No data " + fromOrTo + " - " + email);
+        }
+
+        return ResponseEntity.ok(messages);
     }
 }

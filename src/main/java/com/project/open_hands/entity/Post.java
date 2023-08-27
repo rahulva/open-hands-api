@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +36,13 @@ public class Post {
     private String category;
 
     @NotBlank
-    @Column(nullable = false)
-    private String subCategory;
+    @Column(nullable = false, name = "item_condition")
+    private String condition;
 
     private String location;
-    private List<String> images = new ArrayList<>();
+
+    @Transient
+    private List<Image> images = new ArrayList<>();
 
     @Column(nullable = false)
     /*@Temporal(TemporalType.TIMESTAMP)*/
