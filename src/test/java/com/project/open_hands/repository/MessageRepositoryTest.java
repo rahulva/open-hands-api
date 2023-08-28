@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +29,7 @@ class MessageRepositoryTest {
         entity.setTelephoneNo("+4919212221222");
         entity.setMessageText("");
         entity.setId("");
-        entity.setRequestTime("");
+        entity.setRequestTime(LocalDateTime.parse(""));
 
         Message message = repository.save(entity);
         assertThat(message).isNotNull();

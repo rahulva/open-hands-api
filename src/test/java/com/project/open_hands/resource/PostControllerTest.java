@@ -45,7 +45,7 @@ class PostControllerTest {
         post1.setCondition("New");
         post1.setImages(List.of());
         post1.setLocation("");
-        post1.setDateTime(Instant.now(clock).toString());
+        post1.setDateTime(LocalDateTime.now(clock));
         post1.setCreatedBy("user2@gmail.com");
         postRepository.save(post1);
 
@@ -56,7 +56,7 @@ class PostControllerTest {
         post2.setCondition("New");
         post2.setImages(List.of());
         post2.setLocation("");
-        post2.setDateTime(Instant.now(clock).toString());
+        post2.setDateTime(LocalDateTime.now(clock));
         post2.setCreatedBy("user2@gmail.com");
         postRepository.save(post2);
 
@@ -68,7 +68,7 @@ class PostControllerTest {
         post3.setCondition("New");
         post3.setImages(List.of());
         post3.setLocation("");
-        post3.setDateTime(Instant.now(clock).toString());
+        post3.setDateTime(LocalDateTime.now(clock));
         post3.setCreatedBy("user3@gmail.com");
         postRepository.save(post3);
     }

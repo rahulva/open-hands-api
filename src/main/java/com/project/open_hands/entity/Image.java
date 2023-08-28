@@ -6,15 +6,14 @@ import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
 
-@Entity
-@Table(name = "image")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-//@NoArgsConstructor
+@Entity
+@Table(name = "oh_images")
 public class Image {
     @Id
     @Column(name = "id")

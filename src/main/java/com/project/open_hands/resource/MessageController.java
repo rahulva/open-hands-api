@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +48,7 @@ public class MessageController {
         entity.setFromEmail(messageRequest.getFromEmail());
         entity.setToEmail(messageRequest.getToEmail());
 //        entity.setRequestTime(Instant.parse(messageRequest.getRequestTime())); //TODO date time converter
-        entity.setRequestTime(messageRequest.getRequestTime());
+        entity.setRequestTime(LocalDateTime.parse(messageRequest.getRequestTime()));
         entity.setTelephoneNo(messageRequest.getTelephoneNo());
         entity.setPost(post);
         return entity;

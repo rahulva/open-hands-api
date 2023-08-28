@@ -51,7 +51,7 @@ public class PostService {
     }
 
     public Collection<Post> getAllPosts() {
-        return cache.values();
+        return cache.values().stream().sorted(Comparator.comparing(Post::getDateTime).reversed()).toList();
     }
 
     public Collection<Post> getAllPostForUser(String email) {
