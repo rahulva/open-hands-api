@@ -1,14 +1,12 @@
 package com.project.open_hands.resource;
 
+import com.project.open_hands.Constants;
 import com.project.open_hands.entity.Message;
 import com.project.open_hands.entity.Post;
-import com.project.open_hands.mappers.MessageMapper;
 import com.project.open_hands.repository.MessageRepository;
-import com.project.open_hands.repository.PostRepository;
 import com.project.open_hands.resource.model.MessageRequest;
 import com.project.open_hands.services.PostService;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,9 +32,7 @@ public class MessageController {
         if (post.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Post doesn't exists");
         }
-        /*FIXME Message entity = MessageMapper.INSTANCE.toEntity(messageRequest);*/
         Message entity = toMessage(messageRequest, post.get());
-        System.out.println("entity = " + entity);
         Message msg = messageRepo.save(entity);
         return ResponseEntity.status(HttpStatus.CREATED).body(msg);
     }
@@ -47,14 +43,13 @@ public class MessageController {
         entity.setMessageText(messageRequest.getMessageText());
         entity.setFromEmail(messageRequest.getFromEmail());
         entity.setToEmail(messageRequest.getToEmail());
-//        entity.setRequestTime(Instant.parse(messageRequest.getRequestTime())); //TODO date time converter
-        entity.setRequestTime(LocalDateTime.parse(messageRequest.getRequestTime()));
+        entity.setRequestTime(LocalDateTime.parse(messageRequest.getRequestTime(), Constants.dateTimeFormatter));
         entity.setTelephoneNo(messageRequest.getTelephoneNo());
         entity.setPost(post);
         return entity;
     }
 
-    @GetMapping("/{fromOrTo}/{email}" )
+    @GetMapping("/{fromOrTo}/{email}")
     public ResponseEntity<List<Message>> getMessages(@Valid @PathVariable("fromOrTo") String fromOrTo, @Valid @PathVariable("email") String email) {
         // Request that I made to other (my email will be in from field)
         log.info("Requesting {}, {}", fromOrTo, email);

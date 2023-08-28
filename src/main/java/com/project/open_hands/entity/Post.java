@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.project.open_hands.entity.Message.UTC;
-import static com.project.open_hands.entity.Message.YYYY_MM_DD_HH_MM_SS;
+import static com.project.open_hands.Constants.UTC;
+import static com.project.open_hands.Constants.YYYY_MM_DD_HH_MM_SS;
 
 @Getter
 @Setter

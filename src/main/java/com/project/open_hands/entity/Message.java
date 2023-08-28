@@ -1,13 +1,15 @@
 package com.project.open_hands.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+
+import static com.project.open_hands.Constants.UTC;
+import static com.project.open_hands.Constants.YYYY_MM_DD_HH_MM_SS;
 
 @Getter
 @Setter
@@ -16,8 +18,6 @@ import java.time.LocalDateTime;
 @Table(name = "oh_messages")
 public class Message {
 
-    public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
-    public static final String UTC = "UTC";
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
