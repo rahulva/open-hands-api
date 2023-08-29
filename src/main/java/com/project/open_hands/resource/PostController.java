@@ -8,6 +8,7 @@ import com.project.open_hands.services.PostService;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/posts")
 @RequiredArgsConstructor
@@ -43,10 +45,30 @@ public class PostController {
 
     @GetMapping(consumes = "application/json;charset=UTF-8")
     public ResponseEntity<Collection<Post>> getAllPosts() {
-        if (postService.getAllPosts().isEmpty()) {
+        Collection<Post> allPosts = postService.getAllPosts();
+        if (allPosts.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No Posts available");
         }
-        return ResponseEntity.ok(postService.getAllPosts());
+        return ResponseEntity.ok(allPosts);
+    }
+
+    @GetMapping(path = {"/search/"}, consumes = "application/json;charset=UTF-8")
+    public ResponseEntity<Collection<Post>> searchPostAll() {
+        return getAllPosts();
+    }
+
+    @GetMapping(path = {"/search/{searchTerm}"}, consumes = "application/json;charset=UTF-8")
+    public ResponseEntity<Collection<Post>> searchPost(@PathVariable("searchTerm") String searchTerm) {
+        log.info("Search term {}", searchTerm);
+        if (searchTerm == null || searchTerm.isBlank() || searchTerm.equals("*")) {
+            return getAllPosts();
+        }
+
+        Collection<Post> list = postService.searchPost(searchTerm);
+        if (list.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Results found");
+        }
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping(path = "/{email}", consumes = "application/json;charset=UTF-8")
@@ -63,7 +85,6 @@ public class PostController {
         postService.delete(postId);
         return ResponseEntity.accepted().build();
     }
-
 
 
     //    @PostMapping(consumes = "application/json;charset=UTF-8")

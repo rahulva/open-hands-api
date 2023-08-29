@@ -54,6 +54,19 @@ public class PostService {
         return cache.values().stream().sorted(Comparator.comparing(Post::getDateTime).reversed()).toList();
     }
 
+    public Collection<Post> searchPost(String term) {
+        String termLow = term.toLowerCase();
+        String[] searchTokens = termLow.split(" ");
+        return cache.values().stream()
+                .filter(post -> Arrays.stream(searchTokens).anyMatch(token -> (
+                        post.getTitle().toLowerCase().contains(token) ||
+                                post.getCategory().toLowerCase().contains(token) ||
+                                post.getCondition().toLowerCase().contains(token) ||
+                                post.getLocation().toLowerCase().contains(token) ||
+                                post.getDescription().toLowerCase().contains(token))))
+                .sorted(Comparator.comparing(Post::getDateTime).reversed()).toList();
+    }
+
     public Collection<Post> getAllPostForUser(String email) {
         return cache.values().stream().filter(post -> post.getCreatedBy().equals(email)).toList();
     }
