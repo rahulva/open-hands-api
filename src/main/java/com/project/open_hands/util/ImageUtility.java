@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-public class ImageUtility {
+public final class ImageUtility {
+    private ImageUtility() {
+    }
 
     public static byte[] compressImage(byte[] data) {
 
@@ -21,7 +23,7 @@ public class ImageUtility {
         }
         try {
             outputStream.close();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return outputStream.toByteArray();
     }
@@ -37,7 +39,7 @@ public class ImageUtility {
                 outputStream.write(tmp, 0, count);
             }
             outputStream.close();
-        } catch (Exception exception) {
+        } catch (Exception ignored) {
         }
         return outputStream.toByteArray();
     }

@@ -14,18 +14,13 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Collection;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
-@RequiredArgsConstructor
 public class UserController {
 
     public static final String UNABLE_TO_FIND_USER = "Unable to find user";
     private final UserRepository repository;
-
-    @GetMapping
-    public Collection<User> getUsers() {
-        return repository.findAll();
-    }
 
     @PostMapping(consumes = "application/json;charset=UTF-8")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
@@ -65,7 +60,6 @@ public class UserController {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, UNABLE_TO_FIND_USER);
     }
-
 
     @DeleteMapping("/{email}")
     public ResponseEntity<String> deleteUser(@PathVariable String email) {

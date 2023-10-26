@@ -1,26 +1,18 @@
 package com.project.open_hands.resource;
 
-import com.project.open_hands.OpenHandsApiApplication;
 import com.project.open_hands.entity.User;
 import com.project.open_hands.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -47,17 +39,6 @@ class UserControllerTest {
     @AfterEach
     void after() {
         repository.deleteById("test@gmail.com");
-    }
-
-    @Test
-    void getUsers() throws Exception {
-        mvc.perform(get("/users"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].email").value("test@gmail.com"))
-                .andExpect(jsonPath("$[0].firstName").value("Fname"))
-                .andExpect(jsonPath("$[0].lastName").value("Lname"))
-                .andExpect(jsonPath("$[0].password").value("test@pazz"));
     }
 
     @Test

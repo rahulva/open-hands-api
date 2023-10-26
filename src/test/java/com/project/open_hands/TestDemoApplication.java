@@ -12,7 +12,8 @@ public class TestDemoApplication {
 	@Bean
 	@ServiceConnection
 	MySQLContainer<?> mysqlContainer() {
-		return new MySQLContainer<>("mysql:latest");
+		return new MySQLContainer<>("mysql:latest")
+				.withDatabaseName("open_hands_test");
 	}
 
 	public static void main(String[] args) {

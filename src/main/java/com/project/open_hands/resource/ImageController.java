@@ -15,11 +15,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
 //@CrossOrigin(origins = "http://localhost:8082") open for specific port
-@CrossOrigin
-@RequestMapping(path = "/images")
 @RequiredArgsConstructor
+@CrossOrigin
+@RestController
+@RequestMapping(path = "/images")
 public class ImageController {
 
     private final ImageService imageService;

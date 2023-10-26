@@ -1,5 +1,6 @@
 package com.project.open_hands.repository;
 
+import com.project.open_hands.Constants;
 import com.project.open_hands.entity.Message;
 import com.project.open_hands.entity.User;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class MessageRepositoryTest {
         entity.setTelephoneNo("+4919212221222");
         entity.setMessageText("");
         entity.setId("");
-        entity.setRequestTime(LocalDateTime.parse(""));
+        entity.setRequestTime(LocalDateTime.parse("2023-09-09 17:08:36.163538", Constants.dateTimeFormatter));
 
         Message message = repository.save(entity);
         assertThat(message).isNotNull();
